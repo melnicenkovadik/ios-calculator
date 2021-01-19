@@ -18,14 +18,15 @@ export const useCalculateState = () => {
         setMemory(memory * parseFloat(value));
       } else if (operator === "÷") {
         setMemory(memory / parseFloat(value));
-      } else if (operator === "m+") {
-        setMemory(memory + parseFloat(value));
-        setMemoryRead(memory);
-      } else if (operator === "m-") {
-        setMemory(memory - parseFloat(value));
+
+      } else {
+        setMemory(parseFloat(value));
       }
-    } else {
-      setMemory(parseFloat(value));
+      if (operator === "m+") {
+        setMemory(memoryValue + parseFloat(value));
+      } else if (operator === "m-") {
+        setMemory(memoryValue - parseFloat(value));
+      }
     }
   };
 
@@ -103,22 +104,20 @@ export const useCalculateState = () => {
         setMemoryValue(null);
         setMemoryRead(null);
         setMemoryOperator(null);
-        console.log('memoryValue', memoryValue);
-        console.log('memoryRead', memoryRead);
-        console.log('memoryOperator', memoryOperator);
         return;
         break;
       case  "m+":
+        setOperator("m+");
         checkMemory();
-        setValue((num + memoryValue).toString());
         setMemoryValue(num);
-        setOperator("m-");
+        setValue((num + memoryValue).toString());
         return;
         break;
       case "m-":
-        checkMemory();
-        setValue((num - memoryValue).toString());
         setOperator("m-");
+        checkMemory();
+        setMemoryValue(num);
+        setValue((num - memoryValue).toString());
         return;
         break;
       case "=":
@@ -126,7 +125,6 @@ export const useCalculateState = () => {
         return;
         break;
     }
-
 
     if (value[value.length - 1] === ".") {
       setValue(value + content);

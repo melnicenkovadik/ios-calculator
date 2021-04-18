@@ -4,15 +4,15 @@
 /node_modules
 /.pnp
 .pnp.js
-.env
-.eslintcache
-yarn.lock
+
 # testing
 /coverage
 
 # production
 /build
-
+.env
+.eslintcache
+yarn.lock
 # misc
 .DS_Store
 .env.local

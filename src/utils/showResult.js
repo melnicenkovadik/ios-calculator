@@ -3,7 +3,7 @@ const showResult = value => {
 
   let output = "";
   let decimal = "";
-  let isNeg = false;
+  let isDot = false;
 
   if (value.includes(".")) {
     output = value.substring(0, value.indexOf("."));
@@ -13,13 +13,12 @@ const showResult = value => {
   }
 
   if (parseFloat(value) < 0) {
-    isNeg = true;
+    isDot = true;
     output = output.substring(1);
   }
-
-  return isNeg
-    ? "-" + parseFloat(output).toLocaleString() + decimal
-    : parseFloat(output).toLocaleString() + decimal;
+  return isDot
+    ? "-" + (parseFloat(output).toLocaleString() + decimal)
+    : (parseFloat(output).toLocaleString() + decimal);
 };
 
 export default showResult;

@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from "react";
-
-import Button from "../Button";
+import React from "react";
+import menu from "./../assets/menu.jpg";
+import { Button } from "../Button/index";
+import showResult from "../../utils/showResult";
 import "./App.css";
-import menu from "../../assets/menu.jpg";
-import { useCalculateState } from "./hooks/useCalculateState";
-import showResult from "../consts/showResult";
+import { useCalc } from "../../hooks/useCalc";
 
-const App = () => {
-  const [time, setTime] = useState(new Date());
-  const { value, handleButtonPress } = useCalculateState();
-
-  useEffect(() => {
-    setTime(new Date());
-    // eslint-disable-next-line
-  }, [new Date().getMinutes()]);
-
+export const App = () => {
+  const { value, handleButtonPress, time, mr } = useCalc();
   return (
     <div className="App">
       <div className="top">
@@ -22,15 +14,14 @@ const App = () => {
           {time
             .getHours()
             .toString()
-            .padStart(2, "0")}
-          :
+            .padStart(2, "0")}:
           {time
             .getMinutes()
             .toString()
             .padStart(2, "0")}
         </div>
         <div className="menu">
-          <img src={menu} className='menuItems' alt="menu"/>
+          <img src={menu} alt="menu"/>
         </div>
       </div>
       <div className="display">{showResult(value)}</div>
@@ -41,7 +32,7 @@ const App = () => {
         <Button onButtonClick={handleButtonPress} content="÷" type="right"/>
 
         <Button onButtonClick={handleButtonPress} content="mc"/>
-        <Button onButtonClick={handleButtonPress} content="mr"/>
+        <Button onButtonClick={handleButtonPress} type={mr ? 'grey' : ''} content="mr"/>
         <Button onButtonClick={handleButtonPress} content="m-"/>
         <Button onButtonClick={handleButtonPress} content="m+" type="right"/>
 
@@ -58,12 +49,10 @@ const App = () => {
         <Button onButtonClick={handleButtonPress} content="3"/>
         <Button onButtonClick={handleButtonPress} content="+" type="right"/>
         <Button onButtonClick={handleButtonPress} content="0"/>
-        <Button onButtonClick={handleButtonPress} content=","/>
+        <Button onButtonClick={handleButtonPress} content="."/>
         <Button onButtonClick={handleButtonPress} content="=" type="right"/>
       </div>
       <div className="bottom"/>
     </div>
   );
 };
-
-export default App;
